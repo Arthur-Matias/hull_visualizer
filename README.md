@@ -16,7 +16,7 @@ Developed in collaboration with **naval engineers**, this project provides a mod
 
 > 🚧 Not yet published to npm — clone and build locally for now.
 
-```
+```cmd
 git clone https://github.com/Arthur-Matias/hull-visualizer 
 cd hull-visualizer 
 npm install npm run dev
@@ -43,7 +43,7 @@ You can import directly:
 
 ## ⚙️ Basic Usage
 
-```
+```ts
 import { HullVisualizer, Types } from "../src/main";
 
 import { Tables } from "./tables";
@@ -62,7 +62,7 @@ It’s conceptually similar to an **offset table** used in traditional naval arc
 
 ### Type Definition
 
-```
+```ts
 export interface QuoteTable {
 
  /** Array of longitudinal stations defining the hull */
