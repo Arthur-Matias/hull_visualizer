@@ -16,7 +16,11 @@ Developed in collaboration with **naval engineers**, this project provides a mod
 
 > 🚧 Not yet published to npm — clone and build locally for now.
 
-`git clone https://github.com/Arthur-Matias/hull-visualizer cd hull-visualizer npm install npm run dev`
+```
+git clone https://github.com/Arthur-Matias/hull-visualizer 
+cd hull-visualizer 
+npm install npm run dev
+```
 
 Example usage can be found in `/example`.
 
@@ -39,7 +43,15 @@ You can import directly:
 
 ## ⚙️ Basic Usage
 
-`import { HullVisualizer, Types } from "../src/main"; import { Tables } from "./tables";  const canvas = document.getElementById("hullCanvas") as HTMLCanvasElement; const visualizer = new HullVisualizer(canvas);  // Load a hull geometry from a QuoteTable definition visualizer.loadHullFromQuoteTable(Tables.getMetersTable());  // Activate weight-painting mode visualizer.stateManagerRef.AddWeightActive = true;`
+```
+import { HullVisualizer, Types } from "../src/main";
+
+import { Tables } from "./tables";
+const canvas = document.getElementById("hullCanvas") as HTMLCanvasElement;
+const visualizer = new HullVisualizer(canvas);  // Load a hull geometry from a QuoteTable definition
+visualizer.loadHullFromQuoteTable(Tables.getMetersTable());  // Activate weight-painting mode
+visualizer.stateManagerRef.AddWeightActive = true;
+```
 
 ---
 
@@ -50,7 +62,61 @@ It’s conceptually similar to an **offset table** used in traditional naval arc
 
 ### Type Definition
 
-`export interface QuoteTable {   /** Array of longitudinal stations defining the hull */   stations: Station[];    /** Additional global information about the table and hull characteristics */   metadata: QuoteTableMetadata; }  export interface Station {   /** Longitudinal position (X-axis) of this station */   position: number;    /** Waterlines defining the half-breadths at various heights */   waterlines: Waterline[]; }  export interface Waterline {   /** Vertical coordinate (Z-axis) at this point */   height: number;    /** Half-breadth (Y-axis) at the port side — starboard is mirrored if symmetric */   halfBreadthPort: number; }  export interface QuoteTableMetadata {   /** Hull weight in consistent units */   weight: number;    /** Unit system for all dimensions ('m', 'mm', 'ft', etc.) */   units: "m" | "mm" | "ft";    /** Whether geometry is mirrored across the centerline */   symmetry: "symmetric" | "asymmetric";    /** True if hull includes a keel (affects baseline handling) */   hasKeel: boolean;    /** True if hull includes a chine (non-fair break in hull surface) */   hasChine: boolean;    /** Plate or shell thickness, relevant for FEA or hydrostatics */   thickness: number; }`
+```
+export interface QuoteTable {
+
+ /** Array of longitudinal stations defining the hull */
+stations: Station[];
+
+/** Additional global information about the table and hull characteristics */
+metadata: QuoteTableMetadata;
+
+ }
+
+
+export interface Station {
+
+/** Longitudinal position (X-axis) of this station */
+position: number;
+
+/** Waterlines defining the half-breadths at various heights */
+waterlines: Waterline[];
+
+}
+
+
+export interface Waterline {
+
+/** Vertical coordinate (Z-axis) at this point */
+height: number;
+
+/** Half-breadth (Y-axis) at the port side — starboard is mirrored if symmetric */
+halfBreadthPort: number;
+
+}
+
+export interface QuoteTableMetadata {
+
+/** Hull weight in consistent units */
+weight: number;
+
+/** Unit system for all dimensions ('m', 'mm', 'ft', etc.) */
+units: "m" | "mm" | "ft";
+
+/** Whether geometry is mirrored across the centerline */
+symmetry: "symmetric" | "asymmetric";
+
+/** True if hull includes a keel (affects baseline handling) */
+hasKeel: boolean;
+
+/** True if hull includes a chine (non-fair break in hull surface) */
+hasChine: boolean;
+
+/** Plate or shell thickness, relevant for FEA or hydrostatics */
+thickness: number;
+
+}
+```
 
 ---
 
@@ -121,7 +187,15 @@ All interactions are constrained to visible geometry to avoid back-face painting
 
 ## 🧠 Library Architecture
 
-`flowchart TD     A[Types.QuoteTable] --> B[HullVisualizer.loadHullFromQuoteTable()]     B --> C[Geometry Builder]     C --> D[WebGL Renderer]     D --> E[User Interaction Layer]     E --> F[WeightManager]     F --> G[FEA/Export Data]     E --> H[StateManagerRef (Reactive State)]`
+```flowchart TD
+A[Types.QuoteTable] --> B[HullVisualizer.loadHullFromQuoteTable()]
+B --> C[Geometry Builder]
+C --> D[WebGL Renderer]
+D --> E[User Interaction Layer]
+E --> F[WeightManager]
+F --> G[FEA/Export Data]
+E --> H[StateManagerRef (Reactive State)]
+```
 
 **Flow summary:**
 
@@ -146,7 +220,11 @@ Enable internal debugging visualizations:
 
 Subscribe to state changes:
 
-`visualizer.stateManagerRef.addObserver((state) => {   console.log("Camera mode:", state.CameraMode); }, ["CameraMode"]);`
+```
+visualizer.stateManagerRef.addObserver((state) => {   
+    console.log("Camera mode:", state.CameraMode);
+}, ["CameraMode"]);
+```
 
 Switch between camera projections:
 
