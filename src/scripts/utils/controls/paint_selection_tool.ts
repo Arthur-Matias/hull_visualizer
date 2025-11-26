@@ -57,7 +57,7 @@ export class PaintSelectionTool {
         }, ['AddWeightActive']);
 
         // Update selection display when visibility changes (don't clear selection data)
-        stateManager.addObserver((state) => {
+        stateManager.addObserver((_) => {
             stateManager.Debug && console.log('👁️ Visibility changed, updating selection display');
             this.updateHighlight();
         }, ['ShowHull', 'ShowDeck', 'ShowStations', 'ShowWaterlines']);
@@ -401,7 +401,7 @@ export class PaintSelectionTool {
         this.faceData.forEach((faceData, faceId) => {
             if (!this.selectedFaces.has(faceId)) return;
 
-            const { mesh, faceIndex, localCenter } = faceData;
+            const { mesh, faceIndex } = faceData;
 
             // Skip if mesh is not currently visible
             if (!this.isMeshVisible(mesh)) {

@@ -72,9 +72,9 @@ class HullVisualizer {
     );
 
     // Update rotation cube when camera mode changes
-    this.cameraHelper.onModeChange(() => {
-      this.rotationCube.onCameraModeChanged();
-    });
+    // this.cameraHelper.onModeChange(() => {
+    //   this.rotationCube.onCameraModeChanged();
+    // });
 
     // Set up all mouse and keyboard interactions
     this.setupListeners();
@@ -110,7 +110,7 @@ class HullVisualizer {
     // Update camera mode when state changes
     stateManager.addObserver((state, changedProps) => {
       if (changedProps.includes("CameraMode")) {
-        this.cameraHelper.setMode(state.CameraMode);
+        this.cameraHelper.toggleCameraMode(state.CameraMode);
       }
       
       // Clear selection when weight painting is deactivated
@@ -122,7 +122,7 @@ class HullVisualizer {
 
   setupListeners() {
     // Left-click painting - only active when weight mode is enabled
-    this.mouseHelper.addInteractionFunction("mouseDown", (e: any) => {
+    this.mouseHelper.addInteractionFunction("mouseDown", (_: any) => {
       if (!stateManager.AddWeightActive) return;
       
       this.paintSelectionTool.startPainting();
@@ -133,7 +133,7 @@ class HullVisualizer {
     }, "left");
 
     // Continuous painting while dragging
-    this.mouseHelper.addInteractionFunction("drag", (e: any) => {
+    this.mouseHelper.addInteractionFunction("drag", (_: any) => {
       if (!stateManager.AddWeightActive) return;
       
       const mouse = this.mouseHelper.getMousePosition();
@@ -141,7 +141,7 @@ class HullVisualizer {
     }, "left");
 
     // Stop painting on mouse release
-    this.mouseHelper.addInteractionFunction("mouseUp", (e: any) => {
+    this.mouseHelper.addInteractionFunction("mouseUp", (_: any) => {
       if (!stateManager.AddWeightActive) return;
       
       this.paintSelectionTool.stopPainting();
@@ -168,7 +168,7 @@ class HullVisualizer {
     });
 
     // Mouse move for brush preview (even when not actively painting)
-    this.mouseHelper.addInteractionFunction("mouseMove", (e: any) => {
+    this.mouseHelper.addInteractionFunction("mouseMove", (_: any) => {
       if (!stateManager.AddWeightActive) return;
       
       const mouse = this.mouseHelper.getMousePosition();

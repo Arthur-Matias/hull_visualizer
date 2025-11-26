@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import type Hull from '../../../components/hull';
 import { stateManager } from '../../state_manager';
 import type CameraHelper from '../camera/camera_helper';
-import type { CameraModes } from 'src/types';
+// import type { CameraModes } from 'src/types';
 
 type InteractionType =
     | 'dragStart' | 'drag' | 'dragEnd'
@@ -465,7 +465,7 @@ export default class MouseHelper {
     public getWorldPositionFromHull(hull: Hull): THREE.Vector3 | null {
         this.raycaster.setFromCamera(this.position, this.cameraHelperRef.getCamera());
 
-        const { bowMesh, deckMesh, hullMesh, stationsMesh, transomMesh, waterlines } = hull.getSeparatedHullMesh();
+        const { bowMesh, deckMesh, hullMesh, transomMesh, waterlines } = hull.getSeparatedHullMesh();
         const intersectMeshes = [];
 
         // Only include meshes that are currently visible according to state manager
