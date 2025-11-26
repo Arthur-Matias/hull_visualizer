@@ -48,9 +48,9 @@ import { HullVisualizer, Types } from "../src/main";
 
 import { Tables } from "./tables";
 const canvas = document.getElementById("hullCanvas") as HTMLCanvasElement;
-const visualizer = new HullVisualizer(canvas);  // Load a hull geometry from a QuoteTable definition
-visualizer.loadHullFromQuoteTable(Tables.getMetersTable());  // Activate weight-painting mode
-visualizer.stateManagerRef.AddWeightActive = true;
+const visualizer = new HullVisualizer(canvas); 
+visualizer.loadHullFromQuoteTable(Tables.getMetersTable()); // Load a hull geometry from a QuoteTable definition
+visualizer.stateManagerRef.AddWeightActive = true; // Activate weight-painting mode
 ```
 
 ---
